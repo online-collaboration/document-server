@@ -57,6 +57,5 @@ func Initialize() *Config {
 		}
 
 	})
-	fmt.Printf("Conf is %+v", Conf)
 	return Conf
 }

@@ -1,0 +1,34 @@
+version: '2.1'
+
+services:
+  honeycomb_db:
+    image: mysql:5.7
+    volumes:
+      - db_data:/var/lib/document-server
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: honeycomb_document
+      MYSQL_USER: honeycomb
+      MYSQL_PASSWORD: honeycomb
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      timeout: 5s
+      retries: 5
+
+  honeycomb:
+    depends_on:
+      honeycomb_db:
+        condition: service_healthy
+    # Replace with document-server image ID
+    image: 5bfae5e1b4ca
+    ports:
+      - "44800:44800"
+    restart: always
+    environment:
+      MYSQL_HOST: honeycomb_db:3306
+      MYSQL_DATABASE: honeycomb_document
+      MYSQL_USER: honeycomb
+      MYSQL_PASSWORD: honeycomb
+volumes:
+  db_data: {}

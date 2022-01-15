@@ -1,0 +1,8 @@
+[server]
+port = "44800"
+name = "document-server"
+max_cups = 1
+
+[mysql]
+mysql_address = "127.0.0.1:3306"
+mysql_password = "12345678"

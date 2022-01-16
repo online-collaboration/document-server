@@ -3,5 +3,9 @@
 ## init
 go mod tidy
 
-## start
+## local start 
 go run main.go
+
+## start mysql && document-server
+`make build`  
+`make compose`

@@ -1,0 +1,3 @@
+#!/bin/sh
+
+./document-server

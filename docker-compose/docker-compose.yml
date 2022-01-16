@@ -17,11 +17,10 @@ services:
       retries: 5
 
   honeycomb:
-    depends_on:
-      honeycomb_db:
-        condition: service_healthy
-    # Replace with document-server image ID
-    image: 5bfae5e1b4ca
+    depends_on: [honeycomb_db]
+    image: document-server:0.01
+    volumes:
+      - ../../document-server:/opt/document-server
     ports:
       - "44800:44800"
     restart: always

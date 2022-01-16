@@ -2,8 +2,8 @@ FROM golang:1.17.5-alpine3.15 AS build
 
 WORKDIR /opt/document-server
 
-COPY ./ /opt/document-server
-COPY docker/dev/entrypoint.sh /opt/entrypoint.sh
+COPY ./bin/document-server /opt/document-server
+COPY docker/dev/entrypoint.sh  /opt/document-server/entrypoint.sh
 
 # set Time Zone
 ENV TZ=Asia/Shanghai
@@ -11,10 +11,9 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 ENV PATH "$PATH:/root/go/bin"
 ENV GOPATH "/root/go/src"
-ENV APP_ENV dev
+ENV APP_ENV test
 
-# RUN go get -u github.com/cosmtrek/air 使用air时候经常因为端口没占用，无法自动reload，后续再研究，暂时使用fresh
-RUN go get github.com/pilu/fresh
 RUN chmod +x /opt/entrypoint.sh
+RUN chmod +x document-server
 
 ENTRYPOINT /opt/entrypoint.sh
